@@ -4,7 +4,6 @@ namespace fize\provider\ipinfo;
 
 /**
  * IP信息库
- * @package fize\provider\ipinfo
  */
 class IpInfo
 {

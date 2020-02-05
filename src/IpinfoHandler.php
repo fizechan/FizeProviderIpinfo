@@ -4,7 +4,6 @@ namespace fize\provider\ipinfo;
 
 /**
  * 定义IP库处理器方法接口
- * @package fize\provider\ipinfo
  */
 abstract class IpinfoHandler
 {

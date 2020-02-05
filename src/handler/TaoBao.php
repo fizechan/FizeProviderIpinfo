@@ -3,14 +3,13 @@
 
 namespace fize\provider\ipinfo\handler;
 
-use fize\provider\ipinfo\IpinfoHandler;
-use fize\provider\ipinfo\IpInfo;
 use fize\net\Http;
 use fize\crypt\Json;
+use fize\provider\ipinfo\IpinfoHandler;
+use fize\provider\ipinfo\IpInfo;
 
 /**
  * 淘宝提供的IPinfo服务
- * @package fize\provider\ipinfo\handler
  */
 class TaoBao extends IpinfoHandler
 {
@@ -23,11 +22,10 @@ class TaoBao extends IpinfoHandler
     public function get($ip)
     {
         $url = "http://ip.taobao.com/service/getIpInfo.php?ip={$ip}";
-        $http = new Http();
-        $response = $http->get($url);
+        $response = Http::get($url);
         if(!$response) {
-            $this->errCode = $http->getLastErrCode();
-            $this->errMsg = $http->getLastErrMsg();
+            $this->errCode = Http::getLastErrCode();
+            $this->errMsg = Http::getLastErrMsg();
             return null;
         }
         $json = Json::decode($response);

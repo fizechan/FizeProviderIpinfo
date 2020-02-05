@@ -10,7 +10,7 @@
     ],
     "require": {
 		"php": ">=5.4.0",
-        "fize/net": "~2.0",
+        "fize/net": "~4.0",
         "fize/crypt": "~3.0"
     },
     "require-dev": {
