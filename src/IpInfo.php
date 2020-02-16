@@ -84,7 +84,7 @@ class IpInfo
      * @param array $config 配置项
      * @return IpinfoHandler
      */
-    public static function getInstance($handler = 'TaoBao', array $config = [])
+    public static function getInstance($handler, array $config = null)
     {
         if (empty(self::$handler)) {
             $class = '\\' . __NAMESPACE__ . '\\handler\\' . $handler;

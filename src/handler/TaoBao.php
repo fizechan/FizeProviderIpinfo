@@ -3,6 +3,7 @@
 
 namespace fize\provider\ipinfo\handler;
 
+use RuntimeException;
 use fize\net\Http;
 use fize\crypt\Json;
 use fize\provider\ipinfo\IpinfoHandler;
@@ -17,33 +18,25 @@ class TaoBao extends IpinfoHandler
     /**
      * 根据IP返回IP信息
      * @param string $ip IP
-     * @return Ipinfo 失败时返回null
+     * @return Ipinfo
      */
     public function get($ip)
     {
         $url = "http://ip.taobao.com/service/getIpInfo.php?ip={$ip}";
         $response = Http::get($url);
-        if(!$response) {
-            $this->errCode = Http::getLastErrCode();
-            $this->errMsg = Http::getLastErrMsg();
-            return null;
+        if (!$response) {
+            throw new RuntimeException(Http::getLastErrMsg(), Http::getLastErrCode());
         }
         $json = Json::decode($response);
-        if(!$json) {
-            $this->errCode = Json::lastError();
-            $this->errMsg = Json::lastErrorMsg();
-            return null;
+        if (!$json) {
+            throw new RuntimeException(Json::lastErrorMsg(), Json::lastError());
         }
-        if(!isset($json['code']) || !isset($json['data'])) {
-            $this->errCode = -1;
-            $this->errMsg = '未找到预期的值';
-            return null;
+        if (!isset($json['code']) || !isset($json['data'])) {
+            throw new RuntimeException('未找到预期的值');
         }
 
-        if($json['code']) {
-            $this->errCode = $json['code'];
-            $this->errMsg = '接口错误代码:' . $json['code'];
-            return null;
+        if ($json['code']) {
+            throw new RuntimeException('接口错误代码:' . $json['code'], $json['code']);
         }
         $data = $json['data'];
 
