@@ -1,7 +1,7 @@
 {
   "name": "fize/provider-ipinfo",
-  "description": "IP信息库查询。",
-  "license": "Apache-2.0",
+  "description": "IP信息库",
+  "license": "MIT",
   "authors": [
     {
       "name": "FizeChan",
